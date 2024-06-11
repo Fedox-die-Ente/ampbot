@@ -1,0 +1,8 @@
+[package]
+name = "amp_core"
+version = "0.1.0"
+edition = "2021"
+license = "EUPL-1.2"
+
+[dependencies]
+amp_config = { path = "../amp_config" }

@@ -1,0 +1,25 @@
+[package]
+name = "ampbot"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release-full]
+inherits = "release"
+incremental = false
+codegen-units = 1
+lto = "fat"
+
+[profile.release]
+debug = true
+
+[dependencies]
+amp_core = { path = "amp_core" }
+
+[workspace]
+members = [
+    "amp_config",
+    "amp_core",
+]
+
+[patch.crates-io]
+serenity = { git = "https://github.com/serenity-rs/serenity", branch = "next" }
