@@ -1,0 +1,9 @@
+[package]
+name = "amp_logger"
+version = "0.1.0"
+edition = "2021"
+license = "EUPL-1.2"
+
+[dependencies]
+chrono = "0.4.38"
+colored = "2.1.0"

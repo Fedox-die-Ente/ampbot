@@ -1,9 +1,10 @@
+use amp_logger::{log, LogLevel};
+
 pub fn start() {
 
     load_configuration();
 
-    println!("Core is running...")
-
+    amp_logger::log(LogLevel::Success, "Core is running...".to_string());
 }
 
 fn load_configuration() {
@@ -11,7 +12,7 @@ fn load_configuration() {
         .nth(1)
         .unwrap_or_else(|| "config.toml".to_string());
 
-    println!("[AMP] Reading CFG at {}", path);
+    log(LogLevel::Info, format!("Reading CFG at {}", path));
 
     amp_config::load_config(&path);
 }

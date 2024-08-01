@@ -17,9 +17,5 @@ amp_core = { path = "amp_core" }
 
 [workspace]
 members = [
-    "amp_config",
-    "amp_core",
+    "amp_config", "amp_core", "amp_i18n", "amp_logger",
 ]
-
-[patch.crates-io]
-serenity = { git = "https://github.com/serenity-rs/serenity", branch = "next" }

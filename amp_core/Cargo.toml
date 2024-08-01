@@ -6,3 +6,5 @@ license = "EUPL-1.2"
 
 [dependencies]
 amp_config = { path = "../amp_config" }
+amp_logger = { path = "../amp_logger" }
+log = "0.4.22"
