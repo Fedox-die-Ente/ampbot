@@ -4,7 +4,7 @@ pub fn start() {
 
     load_configuration();
 
-    amp_logger::log(LogLevel::Success, "Core is running...".to_string());
+    amp_logger::log(LogLevel::Success, "Module amp_core successfully loaded".to_string());
 }
 
 fn load_configuration() {
