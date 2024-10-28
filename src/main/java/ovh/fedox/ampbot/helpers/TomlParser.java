@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.AMPConfig;
+import ovh.fedox.ampbot.AMPEmoji;
 
 import java.io.File;
 
@@ -15,29 +16,28 @@ import java.io.File;
  * https://www.youtube.com/watch?v=tjBCjfB3Hq8
  */
 
-public class ConfigParser {
-    private final Logger logger = LoggerFactory.getLogger(ConfigParser.class);
+public class TomlParser {
+    private final Logger logger = LoggerFactory.getLogger(TomlParser.class);
 
-    private final File configFile;
+    private final File tomlFile;
     private final Toml tomlConfig;
 
     @Getter
     private boolean isLoaded;
 
-    public ConfigParser() {
+    public TomlParser(String fileName) {
+        logger.info("Loading " + fileName + "...");
         isLoaded = false;
-        logger.info("Loading config file...");
+        tomlFile = new File(TomlParser.class.getClassLoader().getResource(fileName).getFile());
 
-        configFile = new File(ConfigParser.class.getClassLoader().getResource("config.toml").getFile());
-
-        if (!configFile.exists()) {
-            logger.error("Config file not found");
+        if (!tomlFile.exists()) {
+            logger.error("Toml file not found (" + fileName + ")");
             System.exit(1);
         }
 
-        tomlConfig = new Toml().read(configFile);
+        tomlConfig = new Toml().read(tomlFile);
 
-        logger.info("Config file loaded successfully");
+        logger.info(fileName + " loaded successfully");
         isLoaded = true;
     }
 
@@ -63,6 +63,10 @@ public class ConfigParser {
 
     public Toml getToml() {
         return tomlConfig;
+    }
+
+    public String getEmoji(AMPEmoji emoji) {
+        return tomlConfig.getString(emoji.getEmojiPath());
     }
 
 }
