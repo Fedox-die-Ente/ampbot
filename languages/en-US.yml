@@ -1,2 +1,6 @@
-test:
-  hello: "Hello World"
+{
+	"language": {
+		"name": "English",
+		"code": "en-US"
+	}
+}
