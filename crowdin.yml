@@ -1,5 +1,3 @@
 files:
   - source: languages
-    ignore:
-      - "en.yml"
     translation: /%original_path%/%locale%.yml
