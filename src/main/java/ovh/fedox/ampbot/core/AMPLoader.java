@@ -1,5 +1,6 @@
 package ovh.fedox.ampbot.core;
 
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,5 +44,24 @@ public class AMPLoader {
         CommandHandler commandHandler = new CommandHandler(bot, commandDataSet);
         commandHandler.registerCommands();
     }
+
+    public void loadEvents() {
+        logger.info("Loading events...");
+
+        Reflections reflections = new Reflections("ovh.fedox.ampbot.listener");
+
+        Set<Class<? extends ListenerAdapter>> eventClasses = reflections.getSubTypesOf(ListenerAdapter.class);
+        for (Class<? extends ListenerAdapter> eventClass : eventClasses) {
+            try {
+                ListenerAdapter eventInstance = eventClass.getDeclaredConstructor().newInstance();
+                bot.getJda().addEventListener(eventInstance);
+            } catch (Exception e) {
+                logger.error("Error instantiating event: " + eventClass.getSimpleName(), e);
+            }
+        }
+
+        logger.info("Events loaded successfully. Total events: " + eventClasses.size());
+    }
+
 
 }

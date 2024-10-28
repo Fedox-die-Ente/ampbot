@@ -5,7 +5,6 @@ import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -56,9 +55,8 @@ public class AMPClient extends ListenerAdapter {
             translator = new AMPTranslation();
 
             jda = JDABuilder.createDefault(configParser.getString(AMPConfig.BOT_TOKEN), getIntents()).setMemberCachePolicy(MemberCachePolicy.ALL).enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
-                    .disableCache(CacheFlag.EMOJI, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS).setStatus(OnlineStatus.DO_NOT_DISTURB).setActivity(Activity.customStatus("🔨 in development.")).build();
+                    .disableCache(CacheFlag.EMOJI, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS).setStatus(OnlineStatus.DO_NOT_DISTURB).build();
 
-            jda.awaitReady();
             logger.info("JDA instance created successfully");
         } catch (Exception e) {
             logger.error("Error while creating JDA instance", e);

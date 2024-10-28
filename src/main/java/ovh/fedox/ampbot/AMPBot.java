@@ -22,6 +22,7 @@ public class AMPBot {
         client = new AMPClient();
         loader = new AMPLoader(client);
         loader.loadCommands();
+        loader.loadEvents();
     }
 
 }
