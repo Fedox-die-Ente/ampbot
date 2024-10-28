@@ -1,11 +1,11 @@
 package ovh.fedox.ampbot.core;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -13,7 +13,8 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.AMPConfig;
-import ovh.fedox.ampbot.AMPEmoji;
+import ovh.fedox.ampbot.commands.models.AMPCommandData;
+import ovh.fedox.ampbot.helpers.AMPTranslation;
 import ovh.fedox.ampbot.helpers.TomlParser;
 
 import java.util.Collection;
@@ -31,7 +32,15 @@ public class AMPClient extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(AMPClient.class);
     private final TomlParser configParser = new TomlParser("config.toml");
     private final TomlParser emojiParser = new TomlParser("emojis.toml");
+    @Getter
     private JDA jda;
+
+    @Getter
+    @Setter
+    private Collection<AMPCommandData> commands;
+
+    @Getter
+    private AMPTranslation translator;
 
     public AMPClient() {
         try {
@@ -45,10 +54,11 @@ public class AMPClient extends ListenerAdapter {
                 System.exit(1);
             }
 
+            translator = new AMPTranslation();
+
             jda = JDABuilder.createDefault(configParser.getString(AMPConfig.BOT_TOKEN), getIntents()).setMemberCachePolicy(MemberCachePolicy.ALL).enableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
                     .disableCache(CacheFlag.EMOJI, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS).setStatus(OnlineStatus.DO_NOT_DISTURB).setActivity(Activity.customStatus("🔨 in development.")).build();
 
-            jda.addEventListener(this);
             jda.awaitReady();
             logger.info("JDA instance created successfully");
         } catch (Exception e) {
@@ -58,6 +68,10 @@ public class AMPClient extends ListenerAdapter {
 
     public TomlParser getConfig() {
         return configParser;
+    }
+
+    public TomlParser getEmoji() {
+        return emojiParser;
     }
 
     private Collection<GatewayIntent> getIntents() {
@@ -72,20 +86,6 @@ public class AMPClient extends ListenerAdapter {
                 GatewayIntent.SCHEDULED_EVENTS,
                 GatewayIntent.GUILD_INVITES,
                 GatewayIntent.MESSAGE_CONTENT);
-    }
-
-    @Override
-    public void onReady(ReadyEvent event) {
-        logger.info("AMPBot is ready");
-
-        TextChannel channel = event.getJDA().getTextChannelById(1236696661456191551L);
-
-        if (channel != null) {
-            channel.sendMessage("Test Emoji:" + emojiParser.getEmoji(AMPEmoji.AMPBOT)).queue();
-        } else {
-            logger.error("Channel not found");
-        }
-
     }
 
 }

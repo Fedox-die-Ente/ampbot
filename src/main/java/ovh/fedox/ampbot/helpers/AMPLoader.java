@@ -1,26 +1,48 @@
 package ovh.fedox.ampbot.helpers;
 
-import ovh.fedox.ampbot.AMPConfig;
+import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ovh.fedox.ampbot.commands.CommandHandler;
+import ovh.fedox.ampbot.commands.interfaces.AMPCommand;
+import ovh.fedox.ampbot.commands.models.AMPCommandData;
 import ovh.fedox.ampbot.core.AMPClient;
 
-/**
- * © 2024 Florian O and Fabian W.
- * Created on: 10/28/2024 2:30 PM
- * <p>
- * https://www.youtube.com/watch?v=tjBCjfB3Hq8
- */
+import java.util.HashSet;
+import java.util.Set;
 
 public class AMPLoader {
 
+    private static final Logger logger = LoggerFactory.getLogger(AMPLoader.class);
+
     private final AMPClient bot;
+    private final Set<AMPCommandData> commandDataSet;
 
     public AMPLoader(AMPClient bot) {
         this.bot = bot;
+        this.commandDataSet = new HashSet<>();
     }
 
     public void loadCommands() {
-        System.out.println("Loading commands...");
-        System.out.println(bot.getConfig().getString(AMPConfig.BOT_TOKEN));
+        logger.info("Loading commands...");
+
+        Reflections reflections = new Reflections("ovh.fedox.ampbot.commands.impl");
+
+        Set<Class<? extends AMPCommand>> commandClasses = reflections.getSubTypesOf(AMPCommand.class);
+        for (Class<? extends AMPCommand> commandClass : commandClasses) {
+            try {
+                AMPCommand commandInstance = commandClass.getDeclaredConstructor().newInstance();
+                commandDataSet.add(commandInstance.getCommandData());
+            } catch (Exception e) {
+                logger.error("Error instantiating command: " + commandClass.getSimpleName(), e);
+            }
+        }
+
+        bot.setCommands(commandDataSet);
+        logger.info("Commands loaded successfully. Total commands: " + commandDataSet.size());
+
+        CommandHandler commandHandler = new CommandHandler(bot, commandDataSet);
+        commandHandler.registerCommands();
     }
 
 }

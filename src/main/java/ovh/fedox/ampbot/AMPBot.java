@@ -21,6 +21,7 @@ public class AMPBot {
     public static void main(String[] args) {
         client = new AMPClient();
         loader = new AMPLoader(client);
+        loader.loadCommands();
     }
-    
+
 }
