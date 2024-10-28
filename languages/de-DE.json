@@ -1,6 +1,12 @@
 {
 	"language": {
 		"name": "Deutsch",
-		"code": "de-DE"
+		"code": "de"
+	},
+	"commands": {
+		"test": {
+			"name": "testanstalt",
+			"description": "Deutsche Testbeschreibung"
+		}
 	}
 }
