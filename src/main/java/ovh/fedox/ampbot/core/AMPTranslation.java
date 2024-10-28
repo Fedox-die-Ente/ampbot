@@ -1,4 +1,4 @@
-package ovh.fedox.ampbot.helpers;
+package ovh.fedox.ampbot.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -48,7 +48,7 @@ public class AMPTranslation {
 
             translationsMap.put(jsonLangCode, translations);
             languageCodeMap.put(fileNameLangCode, jsonLangCode);
-            languageCodeMap.put(jsonLangCode, jsonLangCode); // Also map the code to itself
+            languageCodeMap.put(jsonLangCode, jsonLangCode);
 
             LOGGER.info("Loaded translations for language: " + jsonLangCode + " (file: " + fileNameLangCode + ")");
         } catch (IOException e) {

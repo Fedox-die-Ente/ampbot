@@ -1,12 +1,11 @@
-package ovh.fedox.ampbot.helpers;
+package ovh.fedox.ampbot.core;
 
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.commands.CommandHandler;
-import ovh.fedox.ampbot.commands.interfaces.AMPCommand;
-import ovh.fedox.ampbot.commands.models.AMPCommandData;
-import ovh.fedox.ampbot.core.AMPClient;
+import ovh.fedox.ampbot.commands.types.AMPCommand;
+import ovh.fedox.ampbot.commands.types.AMPCommandData;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -13,8 +13,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.AMPConfig;
-import ovh.fedox.ampbot.commands.models.AMPCommandData;
-import ovh.fedox.ampbot.helpers.AMPTranslation;
+import ovh.fedox.ampbot.commands.types.AMPCommandData;
 import ovh.fedox.ampbot.helpers.TomlParser;
 
 import java.util.Collection;

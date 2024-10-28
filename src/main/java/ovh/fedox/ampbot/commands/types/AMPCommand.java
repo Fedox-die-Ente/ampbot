@@ -1,6 +1,4 @@
-package ovh.fedox.ampbot.commands.interfaces;
-
-import ovh.fedox.ampbot.commands.models.AMPCommandData;
+package ovh.fedox.ampbot.commands.types;
 
 /**
  * © 2024 Florian O and Fabian W.

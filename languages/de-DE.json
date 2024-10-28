@@ -5,8 +5,14 @@
 	},
 	"commands": {
 		"test": {
-			"name": "testanstalt",
-			"description": "Deutsche Testbeschreibung"
+			"name": "test",
+			"description": "Testbeschreibung",
+			"args": {
+				"message": {
+					"name": "nachricht",
+					"description": "Was ist deine Nachricht?"
+				}
+			}
 		}
 	}
 }

@@ -1,7 +1,11 @@
 package ovh.fedox.ampbot.commands.impl;
 
-import ovh.fedox.ampbot.commands.interfaces.AMPCommand;
-import ovh.fedox.ampbot.commands.models.AMPCommandData;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import ovh.fedox.ampbot.commands.types.AMPCommand;
+import ovh.fedox.ampbot.commands.types.AMPCommandData;
+import ovh.fedox.ampbot.commands.types.AMPCommandOption;
+
+import java.util.List;
 
 /**
  * © 2024 Florian O and Fabian W.
@@ -14,7 +18,9 @@ public class TestCommand implements AMPCommand {
 
     @Override
     public AMPCommandData getCommandData() {
-        return new AMPCommandData("test_command", "commands.test.name", "commands.test.description");
+        return new AMPCommandData.Builder("test", "commands.test.name", "commands.test.description")
+                .options(List.of(new AMPCommandOption("commands.test.args.message.name", "commands.test.args.message.description", OptionType.STRING, false)))
+                .build();
     }
 
     @Override

@@ -3,7 +3,7 @@ package ovh.fedox.ampbot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.core.AMPClient;
-import ovh.fedox.ampbot.helpers.AMPLoader;
+import ovh.fedox.ampbot.core.AMPLoader;
 
 /**
  * © 2024 Florian O and Fabian W.
