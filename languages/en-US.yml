@@ -1,3 +1,4 @@
-test:
-  hello: "Hello World"
-  hello2: "HELLOOOOOO"
+language:
+  name: "English"
+  code: "en-US"
+  version: "1.0.0"
