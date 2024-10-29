@@ -12,7 +12,9 @@ import lombok.Getter;
 @Getter
 public enum AMPConfig {
 
-    BOT_TOKEN("general.BOT_TOKEN");
+    BOT_TOKEN("general.BOT_TOKEN"),
+    MONGODB_URI("database.MONGODB_URI"),
+    DATABASE_NAME("database.DATABASE_NAME");
 
     private final String configPath;
 

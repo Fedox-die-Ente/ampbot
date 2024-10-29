@@ -1,4 +1,4 @@
-package ovh.fedox.ampbot.listener;
+package ovh.fedox.ampbot.listener.impl;
 
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -22,5 +22,4 @@ public class ClientReady extends ListenerAdapter {
         logger.info("Guilds: " + event.getJDA().getGuilds().size());
         logger.info("=====================================");
     }
-    
 }

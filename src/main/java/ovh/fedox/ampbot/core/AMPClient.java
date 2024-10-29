@@ -1,5 +1,6 @@
 package ovh.fedox.ampbot.core;
 
+import com.mongodb.client.MongoClient;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.api.JDA;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import ovh.fedox.ampbot.AMPConfig;
 import ovh.fedox.ampbot.commands.types.AMPCommandData;
 import ovh.fedox.ampbot.helpers.TomlParser;
+import ovh.fedox.ampbot.listener.impl.ClientReady;
 
 import java.util.Collection;
 import java.util.List;
@@ -40,6 +42,10 @@ public class AMPClient extends ListenerAdapter {
     @Getter
     private AMPTranslation translator;
 
+    @Setter
+    @Getter
+    private MongoClient mongoClient;
+
     public AMPClient() {
         try {
             if (!configParser.isLoaded()) {
@@ -58,6 +64,8 @@ public class AMPClient extends ListenerAdapter {
                     .disableCache(CacheFlag.EMOJI, CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS).setStatus(OnlineStatus.DO_NOT_DISTURB).build();
 
             logger.info("JDA instance created successfully");
+
+            jda.addEventListener(new ClientReady());
         } catch (Exception e) {
             logger.error("Error while creating JDA instance", e);
         }
