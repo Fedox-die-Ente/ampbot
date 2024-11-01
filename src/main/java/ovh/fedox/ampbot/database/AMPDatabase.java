@@ -122,7 +122,7 @@ public class AMPDatabase {
                         field.set(model, doc.getObjectId(fieldName));
                     }
                 } catch (IllegalAccessException e) {
-                    logger.error("Error setting field " + fieldName, e);
+                    logger.error("Error setting field {}", fieldName, e);
                 }
             }
 

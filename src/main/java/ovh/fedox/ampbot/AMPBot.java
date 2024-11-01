@@ -15,12 +15,10 @@ import ovh.fedox.ampbot.core.AMPLoader;
 public class AMPBot {
     private static final Logger logger = LoggerFactory.getLogger(AMPBot.class);
 
-    private static AMPClient client;
-    private static AMPLoader loader;
-
     public static void main(String[] args) {
-        client = new AMPClient();
-        loader = new AMPLoader(client);
+        AMPClient client = new AMPClient();
+        AMPLoader loader = new AMPLoader(client);
+
         loader.loadDatabase();
         loader.loadCommands();
         loader.loadEvents();

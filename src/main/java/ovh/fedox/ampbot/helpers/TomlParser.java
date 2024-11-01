@@ -17,27 +17,28 @@ import java.io.File;
  */
 
 public class TomlParser {
-    private final Logger logger = LoggerFactory.getLogger(TomlParser.class);
 
-    private final File tomlFile;
     private final Toml tomlConfig;
 
     @Getter
     private boolean isLoaded;
 
     public TomlParser(String fileName) {
-        logger.info("Loading " + fileName + "...");
+        Logger logger = LoggerFactory.getLogger(TomlParser.class);
+
+        logger.info("Loading {}...", fileName);
         isLoaded = false;
-        tomlFile = new File(TomlParser.class.getClassLoader().getResource(fileName).getFile());
+
+        File tomlFile = new File(TomlParser.class.getClassLoader().getResource(fileName).getFile());
 
         if (!tomlFile.exists()) {
-            logger.error("Toml file not found (" + fileName + ")");
+            logger.error("Toml file not found ({})", fileName);
             System.exit(1);
         }
 
         tomlConfig = new Toml().read(tomlFile);
 
-        logger.info(fileName + " loaded successfully");
+        logger.info("{} loaded successfully", fileName);
         isLoaded = true;
     }
 

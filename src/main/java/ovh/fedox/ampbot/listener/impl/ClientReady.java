@@ -18,8 +18,8 @@ public class ClientReady extends ListenerAdapter {
     @Override
     public void onReady(ReadyEvent event) {
         logger.info("=====================================");
-        logger.info("Logged in as " + event.getJDA().getSelfUser().getAsTag());
-        logger.info("Guilds: " + event.getJDA().getGuilds().size());
+        logger.info("Logged in as {}", event.getJDA().getSelfUser().getAsTag());
+        logger.info("Guilds: {}", event.getJDA().getGuilds().size());
         logger.info("=====================================");
     }
 }

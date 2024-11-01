@@ -37,12 +37,12 @@ public class AMPLoader {
                 AMPCommand commandInstance = commandClass.getDeclaredConstructor().newInstance();
                 commandDataSet.add(commandInstance.getCommandData());
             } catch (Exception e) {
-                logger.error("Error instantiating command: " + commandClass.getSimpleName(), e);
+                logger.error("Error instantiating command: {}", commandClass.getSimpleName(), e);
             }
         }
 
         bot.setCommands(commandDataSet);
-        logger.info("Commands loaded successfully. Total commands: " + commandDataSet.size());
+        logger.info("Commands loaded successfully. Total commands: {}", commandDataSet.size());
 
         CommandHandler commandHandler = new CommandHandler(bot, commandDataSet);
         commandHandler.registerCommands();
@@ -66,20 +66,20 @@ public class AMPLoader {
                             try {
                                 eventClass.getMethod("dispatch", listenerType).invoke(eventInstance, event);
                             } catch (Exception e) {
-                                logger.error("Error dispatching event: " + event.getClass().getSimpleName(), e);
+                                logger.error("Error dispatching event: {}", event.getClass().getSimpleName(), e);
                             }
                         }
                     }
                 };
 
                 bot.getJda().addEventListener(adapter);
-                logger.info("Registered event: " + eventClass.getSimpleName());
+                logger.info("Registered event: {}", eventClass.getSimpleName());
             } catch (Exception e) {
-                logger.error("Error instantiating event: " + eventClass.getSimpleName(), e);
+                logger.error("Error instantiating event: {}", eventClass.getSimpleName(), e);
             }
         }
 
-        logger.info("Events loaded successfully. Total events: " + eventClasses.size());
+        logger.info("Events loaded successfully. Total events: {}", eventClasses.size());
     }
 
     private Class<?> getListenerType(Class<? extends AMPListener> listenerClass) {
