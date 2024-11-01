@@ -1,6 +1,8 @@
 package ovh.fedox.ampbot.listener.impl.interaction;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import ovh.fedox.ampbot.AMPConfig;
+import ovh.fedox.ampbot.core.AMPClient;
 import ovh.fedox.ampbot.listener.types.AMPListener;
 
 /**
@@ -13,11 +15,11 @@ import ovh.fedox.ampbot.listener.types.AMPListener;
 public class InteractionCreate implements AMPListener<SlashCommandInteractionEvent> {
 
     @Override
-    public void dispatch(SlashCommandInteractionEvent event) {
+    public void dispatch(SlashCommandInteractionEvent event, AMPClient client) {
         System.out.println("Interaction created");
-        event.reply("Interaction created").queue();
 
-        // TODO: Access to the client from here
+        // TODO: Test this
+        event.reply(client.getConfig().getString(AMPConfig.DATABASE_NAME)).queue();
     }
 
 }

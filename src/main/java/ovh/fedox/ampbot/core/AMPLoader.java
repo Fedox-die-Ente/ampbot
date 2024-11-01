@@ -62,9 +62,10 @@ public class AMPLoader {
                     @Override
                     public void onGenericEvent(GenericEvent event) {
                         Class<?> listenerType = getListenerType(eventClass);
+                        Class<?> eventClass = bot.getClass();
                         if (listenerType != null && listenerType.isAssignableFrom(event.getClass())) {
                             try {
-                                eventClass.getMethod("dispatch", listenerType).invoke(eventInstance, event);
+                                eventClass.getMethod("dispatch", listenerType, eventClass).invoke(eventInstance, event);
                             } catch (Exception e) {
                                 logger.error("Error dispatching event: {}", event.getClass().getSimpleName(), e);
                             }
